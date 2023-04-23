@@ -1,0 +1,47 @@
+{% extends 'basic.html' %}
+{% block title%}Unit Music {%endblock%}
+
+{%block body%}
+
+{% if message%}
+<script>
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '{{message}}',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    </script>
+{% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style = "padding-top: 3%; padding-left: 10%; padding-top: 5%;">
+            <img src="/media/{{song.songimage}}" alt="" height="300px">
+        </div>
+        <div class="col-md-6" style = "padding-top: 5%;">
+            <h2  style="padding-top: 6%; font-weight: 550;  ">song_id: {{song.song_id}}</h2>
+            <h5 style="padding-top: 2%; font-weight: 550;">songname: {{song.songname}}</h5>
+            <h5 style="padding-top: 2%; font-weight: 550;">singer: {{song.singer}}</h5>
+            <h5 style="padding-top: 2%; font-weight: 550;">songmoviename: {{song.songmoviename}}</h5>
+            <h5 style="padding-top: 2%; font-weight: 550;">duration: {{song.duration}}</h5>
+            <h5 style="padding-top: 2%; font-weight: 550;">uploaded: {{song.uploaded}}</h5>
+           <br>
+            <audio controls >
+                <source src="/media/{{song.songaudio}}" type="audio/mp3">
+            </audio>
+            <div style="padding-top: 2%;">
+
+
+            <div class="row">
+            <form  method="POST">{% csrf_token %}
+            <input type="hidden" name="video_id" value="{{song.song_id}}">
+            
+            </form>
+            <a href="/media/{{song.songaudio}}" download><button class="btn btn-outline-danger">Download Song</button></a>
+            </div>
+        </div>
+    
+    </div>
+</div>
+{%endblock%}
